@@ -1,0 +1,803 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    min-height: 100vh;
+    background: radial-gradient(circle at top, #1a1a1a, #000);
+    font-family: Arial, Helvetica, sans-serif;
+    color: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* TELAS */
+.tela {
+    display: none;
+    width: 100%;
+    max-width: 420px;
+    padding: 30px 20px;
+}
+
+.tela.ativa {
+    display: block;
+}
+
+/* TOPO */
+.topo {
+    margin-bottom: 20px;
+}
+
+.ficha-topo {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.voltar {
+    background: none;
+    border: none;
+    color: #aaa;
+    cursor: pointer;
+}
+
+/* TÍTULOS */
+.titulo {
+    font-family: 'Creepster', cursive;
+    font-size: 2.6rem;
+    color: #b11212;
+    text-align: center;
+}
+
+.subtitulo {
+    text-align: center;
+    font-size: 0.75rem;
+    letter-spacing: 4px;
+    color: #666;
+    margin-bottom: 30px;
+}
+
+.titulo-ficha {
+    font-size: 1rem;
+    color: #b30000;
+    text-transform: uppercase;
+}
+
+/* BOTÕES MENU */
+.botoes {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.btn {
+    padding: 18px;
+    border-radius: 12px;
+    border: none;
+    font-size: 1.1rem;
+    cursor: pointer;
+}
+
+.btn.jogador { background: #b11212; }
+.btn.mestre { background: #1c2738; }
+
+/* CARDS */
+.acoes {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.card {
+    background: #111;
+    padding: 20px;
+    border-radius: 14px;
+    cursor: pointer;
+}
+
+.icone {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.vermelho { background: #b11212; }
+.azul { background: #1c2738; }
+
+/* BLOCOS */
+.bloco {
+    background: linear-gradient(180deg, #0b0b0b, #050505);
+    border: 1px solid #1a1a1a;
+    padding: 15px;
+    border-radius: 12px;
+    margin-bottom: 20px;
+}
+
+.bloco h2 {
+    font-size: 0.85rem;
+    letter-spacing: 2px;
+    color: #b11212;
+    margin-bottom: 12px;
+    text-transform: uppercase;
+}
+
+.bloco.clicavel {
+    cursor: pointer;
+    border: 1px dashed #333;
+}
+
+.bloco.clicavel:hover {
+    border-color: #b11212;
+}
+
+/* INPUTS */
+label {
+    font-size: 0.75rem;
+    color: #777;
+}
+
+input {
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 10px;
+    background: #000;
+    border: 1px solid #333;
+    color: #fff;
+}
+
+/* ATRIBUTOS */
+.atributos-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+}
+
+.atributo-box {
+    background: #0e0e0e;
+    border: 2px solid #3a0000;
+    border-radius: 10px;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;   /* <<< ISSO É O PONTO-CHAVE */
+    align-items: center;
+    gap: 6px;
+    box-shadow: inset 0 0 10px rgba(255,0,0,0.15);
+}
+
+.atributo-box .nome {
+    font-size: 0.75rem;
+    color: #ff4d4d;
+}
+
+.atributo-box .valor {
+    font-size: 1.6rem;
+    font-weight: bold;
+    line-height: 1;
+}
+
+.atributo-box .botoes {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 6px;
+}
+
+.atributo-box button {
+    width: 28px;
+    height: 28px;
+    background: #1a1a1a;
+    border: 2px solid #555;
+    color: #fff;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: bold;
+    line-height: 1;
+}
+
+.atributo-box button:hover {
+    background: #b30000;
+}
+
+/* PONTOS VITAIS */
+.barra {
+    margin-bottom: 12px;
+}
+
+.barra span {
+    font-size: 0.7rem;
+    color: #aaa;
+}
+
+.barra-externa {
+    width: 100%;
+    height: 8px;
+    background: #111;
+    border-radius: 4px;
+    overflow: hidden;
+    margin: 4px 0;
+}
+
+.barra-interna {
+    height: 100%;
+}
+
+.hp .barra-interna { background: #b11212; }
+.san .barra-interna { background: #1c4cb3; }
+.eng .barra-interna { background: #b3a112; }
+
+/* DEF */
+.defesa {
+    position: relative;
+    width: 80px;
+    height: 80px;
+    background: #111;
+    border: 2px solid #555;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.defesa i {
+    font-size: 2.6rem;
+    color: #666;
+}
+
+.defesa .def-valor {
+    position: absolute;
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: #fff;
+}
+
+.defesa .def-texto {
+    position: absolute;
+    bottom: 6px;
+    font-size: 0.6rem;
+    color: #aaa;
+    letter-spacing: 1px;
+}
+
+/* SALVAR */
+.salvar {
+    background: linear-gradient(180deg, #1f7a32, #0f3d1a);
+    border: 1px solid #2fa85a;
+    padding: 6px 14px;
+    border-radius: 6px;
+    color: #d4ffd9;
+    font-size: 0.75rem;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.controle-atributo {
+    display: flex;
+    justify-content: space-between;
+    gap: 8px;
+    margin-top: 6px;
+}
+
+.controle-atributo button {
+    width: 28px;
+    height: 28px;
+    background: #1a1a1a;
+    border: 2px solid #555;
+    color: #fff;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+/* MODAL */
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.85);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 999;
+}
+
+.modal.hidden {
+  display: none;
+}
+
+.modal-conteudo {
+  background: #0f0f0f;
+  border: 2px solid #8b0000;
+  padding: 25px;
+  width: 320px;
+  text-align: center;
+  box-shadow: 0 0 20px #8b0000;
+}
+
+.modal-conteudo h2 {
+  color: #c40000;
+  margin-bottom: 20px;
+  font-size: 20px;
+}
+
+.classes button {
+  width: 100%;
+  margin-bottom: 10px;
+  padding: 10px;
+  background: #1a1a1a;
+  color: #fff;
+  border: 1px solid #444;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.classes button:hover {
+  background: #8b0000;
+}
+
+.fechar {
+  margin-top: 10px;
+  background: transparent;
+  color: #aaa;
+  border: none;
+  cursor: pointer;
+}
+
+.classes button {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    width: 100%;
+    padding: 12px;
+    background: #0b0b0b;
+    border: 1px solid #333;
+    color: #fff;
+    font-size: 0.9rem;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+.classes button i {
+    font-size: 1.2rem;
+    color: #b11212;
+}
+
+.classes button:hover {
+    border-color: #b11212;
+    box-shadow: 0 0 12px rgba(177,18,18,0.4);
+}
+
+/* Garante que a lista de botões dentro do modal tenha scroll se for muito grande */
+.classes {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+/* Estilização da barra de rolagem para combinar com o tema */
+#listaOcupacoes::-webkit-scrollbar {
+    width: 5px;
+}
+#listaOcupacoes::-webkit-scrollbar-track {
+    background: #000;
+}
+#listaOcupacoes::-webkit-scrollbar-thumb {
+    background: #8b0000;
+    border-radius: 10px;
+}
+
+/* Garantir que os botões de ocupação sigam o estilo dos de classe */
+#listaOcupacoes button {
+    justify-content: center; /* Centraliza o texto da ocupação */
+    text-align: center;
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+/* Título principal do bloco (Vermelho e Negrito) */
+.titulo-sessao-vermelho {
+    color: #b11212;
+    font-weight: bold;
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    margin-bottom: 15px;
+    letter-spacing: 1px;
+}
+
+/* Subtítulos (Branco, Negrito e Menor) */
+.sub-info h3 {
+    color: #fff;
+    font-weight: bold;
+    font-size: 0.75rem; /* Menor que o principal */
+    text-transform: uppercase;
+    margin-bottom: 5px;
+}
+
+/* Conteúdo (Texto das perícias e descrição) */
+#periciasTreinadas, #caracteristicaExtra {
+    color: #aaa; /* Um cinza claro para não cansar a vista */
+    font-size: 0.8rem;
+    line-height: 1.4;
+    margin-bottom: 12px;
+}
+
+#periciasTreinadas {
+    list-style: none;
+    padding-left: 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+#periciasTreinadas li {
+    background: rgba(177, 18, 18, 0.1);
+    border: 1px solid #444;
+    padding: 2px 8px;
+    border-radius: 4px;
+}
+
+.modal-largo { width: 95% !important; max-width: 500px; }
+
+.pericias-grid-modal {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+    max-height: 300px;
+    overflow-y: auto;
+    padding: 10px;
+}
+
+.item-pericia {
+    background: #111;
+    border: 1px solid #333;
+    padding: 10px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 0.8rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.item-pericia.selecionada {
+    border-color: #b11212;
+    background: rgba(177, 18, 18, 0.2);
+}
+
+.item-pericia.bloqueada {
+    opacity: 0.5;
+    cursor: not-allowed;
+    background: #050505;
+}
+
+.badge-nivel {
+    font-size: 0.7rem;
+    color: #b11212;
+    font-weight: bold;
+}
+
+
+.pericias-badges-container {
+    list-style: none;
+    padding: 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+/* Estilo idêntico ao que usamos nas perícias da ocupação */
+.badge-pericia {
+    background: rgba(177, 18, 18, 0.1);
+    border: 1px solid #444;
+    padding: 4px 10px;
+    border-radius: 4px;
+    font-size: 0.8rem;
+    color: #eee;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+/* Diferenciação visual para as perícias escolhidas (com bônus) */
+.badge-extra {
+    border-color: #b11212;
+    background: rgba(177, 18, 18, 0.2);
+}
+
+.badge-extra strong {
+    color: #ff4d4d;
+}
+
+.lista-vertical-modal {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    max-height: 400px;
+    overflow-y: auto;
+    padding-right: 5px;
+}
+
+.item-habilidade {
+    background: rgba(255,255,255,0.05);
+    border: 1px solid #444;
+    padding: 12px;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.item-habilidade:hover { background: rgba(177, 18, 18, 0.1); }
+
+.item-habilidade.selecionada {
+    border-color: #b11212;
+    background: rgba(177, 18, 18, 0.2);
+}
+
+.hab-topo {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 5px;
+}
+
+.hab-meta {
+    font-size: 0.7rem;
+    color: #ff4d4d;
+    font-weight: bold;
+}
+
+.hab-desc {
+    font-size: 0.85rem;
+    color: #ccc;
+    line-height: 1.3;
+}
+
+.lista-personagens {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    padding: 20px;
+}
+
+.card-personagem-salvo {
+    background: rgba(255,255,255,0.05);
+    border: 1px solid #333;
+    padding: 15px;
+    border-radius: 8px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.card-personagem-salvo strong {
+    display: block;
+    font-size: 1.2rem;
+    color: #b11212;
+}
+
+.card-personagem-salvo span {
+    font-size: 0.8rem;
+    color: #aaa;
+    text-transform: uppercase;
+}
+
+/* Ícone de Apagar (Lixeira) */
+.btn-excluir {
+    background: rgba(255, 255, 255, 0.05); /* Um fundo sutil */
+    border: 1px solid #333;
+    color: #888;
+    width: 32px;
+    height: 32px;
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.btn-excluir:hover {
+    background: rgba(177, 18, 18, 0.2);
+    border-color: #b11212;
+    color: #ff4d4d;
+}
+
+/* Botão Visualizar Compacto */
+.btn-visualizar {
+    background: linear-gradient(180deg, #1f7a32, #0f3d1a);
+    border: 1px solid #2fa85a;
+    padding: 6px 12px; /* Reduzi o padding para ficar menor */
+    border-radius: 6px;
+    color: #d4ffd9;
+    font-size: 0.75rem; /* Fonte um pouco menor */
+    font-weight: bold;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    white-space: nowrap; /* Impede o texto de quebrar linha */
+    transition: 0.2s;
+}
+
+.btn-visualizar:hover {
+    filter: brightness(1.2);
+}
+
+/* Container do Modal de Visualização */
+.modal-container-flex {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+    width: 95%;
+    max-width: 500px;
+}
+
+/* O CARD BRANCO */
+.card-resumo {
+    background: #fff;
+    color: #000;
+    padding: 30px;
+    border: 1px solid #000; /* Linha fina preta */
+    width: 100%;
+    font-family: 'Courier New', Courier, monospace; /* Estilo máquina de escrever */
+}
+
+.titulo-resumo {
+    color: #b11212;
+    text-align: center;
+    font-size: 1.8rem;
+    margin-bottom: 5px;
+    font-family: 'Arial Black', sans-serif;
+}
+
+.linha-fina {
+    height: 1px;
+    background: #000;
+    margin: 15px 0;
+}
+
+.resumo-linha, .resumo-linha-dupla {
+    margin-bottom: 10px;
+    font-size: 0.9rem;
+}
+
+.resumo-linha-dupla p {
+    display: flex;
+    gap: 5px; /* Espaço entre o rótulo e o valor */
+    white-space: nowrap;
+}
+
+.status-destaque {
+    text-align: center;
+    font-weight: bold;
+    font-size: 1rem;
+    padding: 10px;
+    border: 1px dashed #ccc;
+    margin: 15px 0;
+}
+
+.resumo-secao {
+    font-size: 0.85rem;
+    margin-bottom: 8px;
+    line-height: 1.4;
+}
+
+.resumo-habilidades-box {
+    margin-top: 15px;
+}
+
+.linha-curta {
+    width: 50px;
+    height: 1px;
+    background: #000;
+    margin: 5px 0;
+}
+
+.resumo-rodape {
+    margin-top: 20px;
+    text-align: right;
+    color: #555;
+}
+
+/* BOTÃO FECHAR CINZA */
+.btn-fechar-ficha {
+    width: 100%;
+    padding: 15px;
+    background: #444;
+    border: none;
+    color: #fff;
+    border-radius: 8px;
+    font-weight: bold;
+    cursor: pointer;
+    text-transform: uppercase;
+}
+
+.btn-fechar-ficha:hover { background: #555; }
+
+.aviso-print {
+    color: #aaa;
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.acoes-card {
+    display: flex;
+    align-items: center;
+    gap: 12px; /* Espaço entre o botão e a lixeira */
+}
+
+#toast-container {
+    position: fixed;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 9999;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.toast {
+    background: #1a0000;
+    color: #ff4d4d;
+    border-left: 4px solid #b11212;
+    padding: 12px 25px;
+    border-radius: 4px;
+    font-size: 0.85rem;
+    font-weight: bold;
+    text-transform: uppercase;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.5);
+    animation: slideUp 0.3s ease, fadeOut 0.5s ease 2.5s forwards;
+    min-width: 250px;
+    text-align: center;
+}
+
+@keyframes slideUp {
+    from { transform: translateY(100%); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
+}
+
+@keyframes fadeOut {
+    to { opacity: 0; visibility: hidden; }
+}
+
+.modal-pergunta {
+    border: 1px solid #b11212 !important;
+    box-shadow: 0 0 30px rgba(177, 18, 18, 0.3) !important;
+}
+
+.confirm-botoes {
+    display: flex;
+    gap: 10px;
+}
+
+.btn-confirm {
+    flex: 1;
+    padding: 12px;
+    border: none;
+    border-radius: 4px;
+    font-weight: bold;
+    cursor: pointer;
+    text-transform: uppercase;
+    font-size: 0.8rem;
+}
+
+.btn-confirm.sim {
+    background: #b11212;
+    color: #fff;
+}
+
+.btn-confirm.nao {
+    background: #333;
+    color: #aaa;
+}
+
+.btn-confirm:hover { filter: brightness(1.2); }

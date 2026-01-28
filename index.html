@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>Exploradores do Caos</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Creepster&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+</head>
+<body>
+
+<section id="menu" class="tela ativa">
+    <h1 class="titulo">Exploradores do Caos</h1>
+    <p class="subtitulo">Sobreviva ao fim do mundo</p>
+    <div class="botoes">
+        <button class="btn jogador" onclick="abrirJogador()">
+            <i class="fa-solid fa-user-group"></i> Jogador
+        </button>
+        <button class="btn mestre" onclick="abrirMestre()">
+            <i class="fa-solid fa-skull"></i> Mestre
+        </button>
+    </div>
+</section>
+
+<section id="tela-jogador" class="tela">
+    <div class="topo"><button class="voltar" onclick="voltarMenu()">← Menu</button></div>
+    <h1 class="titulo">Área do Jogador</h1>
+    <div class="acoes">
+        <div class="card acao criar" onclick="abrirCriarPersonagem()">
+            <div class="icone vermelho"><i class="fa-solid fa-plus"></i></div>
+            <h2>Criar Personagem</h2>
+            <p>Monte sua ficha do zero.</p>
+        </div>
+        
+        <div class="card acao ver" onclick="abrirMeusPersonagens()">
+            <div class="icone azul"><i class="fa-solid fa-address-card"></i></div>
+            <h2>Meus Personagens</h2>
+            <p>Veja suas fichas salvas.</p>
+        </div>
+    </div>
+</section>
+
+<section id="tela-meus-personagens" class="tela">
+    <div class="topo"><button class="voltar" onclick="abrirJogador()">← Voltar</button></div>
+    <h1 class="titulo">Meus Sobreviventes</h1>
+    <div id="lista-personagens-salvos" class="lista-personagens">
+        </div>
+</section>
+
+<section id="tela-mestre" class="tela">
+    <div class="topo"><button class="voltar" onclick="voltarMenu()">← Menu</button></div>
+    <h1 class="titulo">Área do Mestre</h1>
+</section>
+
+<section id="tela-criar" class="tela ficha">
+    <div class="topo ficha-topo">
+        <button class="voltar" onclick="abrirJogador()"> Cancelar</button>
+        <span class="titulo-ficha">Ficha do Sobrevivente</span>
+        <button class="salvar" onclick="salvarPersonagem()">Salvar</button>
+    </div>
+
+    <div class="bloco">
+    <h2>Dados Básicos</h2>
+    <label>Nome do Jogador</label>
+    <input type="text" id="input-nome-jogador"> <label>Nome do Personagem</label>
+    <input type="text" id="input-nome-personagem"> <label>Idade</label>
+    <input type="number" id="input-idade">
+</div>
+
+    <div class="bloco clicavel" onclick="abrirModalClasse()">
+        <h2>Classe</h2>
+        <p class="placeholder" id="classe-atual">Nenhuma classe</p>
+    </div>
+
+    <div class="bloco">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
+            <h2>Atributos</h2>
+            <span style="color: #b11212; font-weight: bold; font-size: 0.9rem;">
+                Pontos: <span id="ponto-atributo-contador">9</span> / 9
+            </span>
+        </div>
+        
+        <div class="atributos-grid">
+            <div class="atributo-box">
+                <span class="nome">Força</span>
+                <span class="valor" data-atributo="forca">0</span>
+                <div class="controle-atributo">
+                    <button onclick="alterarAtributo('forca', -1)">-</button>
+                    <button onclick="alterarAtributo('forca', 1)">+</button>
+                </div>
+            </div>
+            <div class="atributo-box">
+                <span class="nome">Destreza</span>
+                <span class="valor" data-atributo="destreza">0</span>
+                <div class="controle-atributo">
+                    <button onclick="alterarAtributo('destreza', -1)">-</button>
+                    <button onclick="alterarAtributo('destreza', 1)">+</button>
+                </div>
+            </div>
+            <div class="atributo-box">
+                <span class="nome">Constituição</span>
+                <span class="valor" data-atributo="constituicao">0</span>
+                <div class="controle-atributo">
+                    <button onclick="alterarAtributo('constituicao', -1)">-</button>
+                    <button onclick="alterarAtributo('constituicao', 1)">+</button>
+                </div>
+            </div>
+            <div class="atributo-box">
+                <span class="nome">Inteligência</span>
+                <span class="valor" data-atributo="inteligencia">0</span>
+                <div class="controle-atributo">
+                    <button onclick="alterarAtributo('inteligencia', -1)">-</button>
+                    <button onclick="alterarAtributo('inteligencia', 1)">+</button>
+                </div>
+            </div>
+            <div class="atributo-box">
+                <span class="nome">Presença</span>
+                <span class="valor" data-atributo="presenca">0</span>
+                <div class="controle-atributo">
+                    <button onclick="alterarAtributo('presenca', -1)">-</button>
+                    <button onclick="alterarAtributo('presenca', 1)">+</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="bloco vitais">
+        <h2>Pontos Vitais</h2>
+        <div class="barra hp">
+            <span><i class="fa-solid fa-heart-pulse"></i> HP</span>
+            <div class="barra-externa"><div class="barra-interna"></div></div>
+            <strong id="hp">0</strong>
+        </div>
+        <div class="barra san">
+            <span><i class="fa-solid fa-brain"></i> SAN</span>
+            <div class="barra-externa"><div class="barra-interna"></div></div>
+            <strong id="san">0</strong>
+        </div>
+        <div class="barra eng">
+            <span><i class="fa-solid fa-bolt"></i> ENG</span>
+            <div class="barra-externa"><div class="barra-interna"></div></div>
+            <strong id="eng">0</strong>
+        </div>
+        <div class="defesa">
+            <i class="fa-solid fa-shield-halved"></i>
+            <span class="def-valor" id="def">9</span>
+            <span class="def-texto">DEF</span>
+        </div>
+    </div>
+    
+    <div class="bloco clicavel" onclick="abrirModalOcupacao()">
+        <h2>Ocupação</h2>
+        <p class="placeholder" id="ocupacaoSelecionada">Nenhuma</p>
+    </div>
+
+    <div class="bloco info-ocupacao">
+        <h2 class="titulo-sessao-vermelho">Informações da Ocupação</h2>
+        <div class="sub-info">
+            <h3>Perícias Treinadas</h3>
+            <ul id="periciasTreinadas"></ul>
+        </div>
+        <div class="sub-info">
+            <h3>Característica Extra</h3>
+            <p id="caracteristicaExtra">—</p>
+        </div>
+    </div>
+
+    <div class="bloco">
+    <h2 class="titulo-sessao-vermelho">Perícias de Treinamento</h2>
+    
+    <div class="bloco clicavel" onclick="abrirModalPericias()" style="background: rgba(255,255,255,0.05); border: 1px dashed #444; margin-bottom: 10px;">
+        <p class="placeholder" id="info-selecao-pericias">Selecionar Perícias (0/2)</p>
+    </div>
+
+    <ul id="lista-pericias-selecionadas" class="pericias-badges-container">
+        </ul>
+</div>
+
+<div class="bloco">
+    <h2 class="titulo-sessao-vermelho">Habilidades de Classe</h2>
+    <div class="bloco clicavel" onclick="abrirModalHabilidades()" style="background: rgba(255,255,255,0.05); border: 1px dashed #444; margin-bottom: 10px;">
+        <p class="placeholder" id="info-selecao-habilidades">Selecionar Habilidades (0/0)</p>
+    </div>
+    <ul id="lista-habilidades-selecionadas" class="pericias-badges-container" style="flex-direction: column; align-items: stretch;">
+        </ul>
+</div>
+
+</section>
+
+<div id="modal-classe" class="modal hidden">
+    <div class="modal-conteudo">
+        <h2>Escolha sua Classe</h2>
+        <div class="classes">
+            <button onclick="selecionarClasse('combatente')"><i class="fa-solid fa-shield-halved"></i><span>Combatente</span></button>
+            <button onclick="selecionarClasse('atirador')"><i class="fa-solid fa-crosshairs"></i><span>Atirador</span></button>
+            <button onclick="selecionarClasse('suporte')"><i class="fa-solid fa-kit-medical"></i><span>Suporte</span></button>
+            <button onclick="selecionarClasse('rastreador')"><i class="fa-solid fa-shoe-prints"></i><span>Rastreador</span></button>
+        </div>
+        <button class="fechar" onclick="fecharModalClasse()">Cancelar</button>
+    </div>
+</div>
+
+<div id="ocupacaoModal" class="modal hidden">
+    <div class="modal-conteudo">
+        <h2>Escolha uma Ocupação</h2>
+        <div id="listaOcupacoes" class="classes" style="max-height: 350px; overflow-y: auto; padding-right: 5px;"></div>
+        <button class="fechar" onclick="fecharModalOcupacao()">Cancelar</button>
+    </div>
+</div>
+
+<div id="modal-pericias" class="modal hidden">
+    <div class="modal-conteudo modal-largo">
+        <h2>Escolha suas Perícias</h2>
+        <p id="contador-pericias" style="font-size: 0.8rem; margin-bottom: 10px; color: #aaa;">Você pode escolher 2 perícias extras.</p>
+        <div id="grade-pericias-modal" class="pericias-grid-modal"></div>
+        <button class="salvar" onclick="fecharModalPericias()" style="margin-top: 15px; width: 100%;">Confirmar</button>
+    </div>
+</div>
+
+<div id="modal-habilidades" class="modal hidden">
+    <div class="modal-conteudo modal-largo">
+        <h2>Habilidades de <span id="nome-classe-modal">---</span></h2>
+        <p id="regra-classe-modal" style="font-size: 0.8rem; color: #aaa; margin-bottom: 15px;"></p>
+        <div id="lista-habilidades-modal" class="lista-vertical-modal">
+            </div>
+        <button class="salvar" onclick="fecharModalHabilidades()" style="margin-top: 15px; width: 100%;">Confirmar</button>
+    </div>
+</div>
+
+<div id="modal-visualizar" class="modal hidden">
+    <div class="modal-container-flex">
+        <div class="card-resumo">
+            <h1 class="titulo-resumo">EXPLORADORES DO CAOS</h1>
+            <div class="linha-fina"></div>
+            
+            <div class="resumo-linha">
+                <p><strong>Nome do Jogador:</strong> <span id="resumo-nome-jogador"></span></p>
+            </div>
+
+            <div class="resumo-linha-dupla">
+                <p><strong>Nome do Personagem:</strong> <span id="resumo-nome-personagem"></span></p>
+                <p><strong>Idade:</strong> <span id="resumo-idade"></span></p>
+            </div>
+
+            <div class="resumo-linha">
+                <p><strong>Classe:</strong> <span id="resumo-classe"></span> | <strong>Ocupação:</strong> <span id="resumo-ocupacao"></span></p>
+            </div>
+
+            <div class="linha-fina"></div>
+            
+            <p id="resumo-status" class="status-destaque"></p>
+            
+            <p class="resumo-secao"><strong>Atributos:</strong> <span id="resumo-atributos"></span></p>
+            
+            <p class="resumo-secao"><strong>Perícias:</strong> <span id="resumo-pericias"></span></p>
+
+            <div class="resumo-habilidades-box">
+                <strong>Habilidades de Classe:</strong>
+                <div class="linha-curta"></div>
+                <div id="resumo-habilidades"></div>
+            </div>
+
+            <div class="resumo-rodape">
+                <small id="resumo-data"></small>
+            </div>
+        </div>
+
+        <button onclick="fecharModalVisualizar()" class="btn-fechar-ficha">FECHAR</button>
+        <p class="aviso-print">Tire um print para salvar a imagem</p>
+    </div>
+</div>
+
+
+<script src="script.js"></script>
+
+<div id="toast-container"></div>
+
+<div id="modal-confirmacao" class="modal hidden">
+    <div class="modal-conteudo modal-pergunta">
+        <i class="fa-solid fa-triangle-exclamation" style="font-size: 2rem; color: #b11212; margin-bottom: 15px;"></i>
+        <h2 id="confirm-titulo">Você tem certeza?</h2>
+        <p id="confirm-mensagem" style="color: #ccc; margin-bottom: 25px; font-size: 0.9rem;"></p>
+        
+        <div class="confirm-botoes">
+            <button id="btn-confirm-sim" class="btn-confirm sim">Sim, prossiga</button>
+            <button id="btn-confirm-nao" class="btn-confirm nao">Cancelar</button>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>
